@@ -13,7 +13,7 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>Sqitch by theory</title>
+    <title>Sqitch</title>
   </head>
 
   <body>
@@ -21,7 +21,7 @@
       <div class="inner">
         <h1>Sqitch</h1>
         <h2>Sane database change management</h2>
-        <a href="https://github.com/theory/sqitch" class="button"><small>View project on</small>GitHub</a>
+        <a href="https://github.com/sqitchers/sqitch" class="button"><small>View project on</small>GitHub</a>
       </div>
     </header>
 
@@ -29,7 +29,7 @@
       <div class="inner clearfix">
         <section id="main-content">
           <p>Sqitch is a database change management application. What makes it different
-from your typical <a href="http://guides.rubyonrails.org/migrations.html">migration</a>-<a href="http://metacpan.org/module/Module::Build::DB">style</a> approaches? A few things:</p>
+from your typical <a href="https://guides.rubyonrails.org/migrations.html">migration</a>-<a href="https://metacpan.org/module/Module::Build::DB">style</a> approaches? A few things:</p>
 
 <h4 id="no-opinions">No opinions</h4>
 
@@ -37,7 +37,7 @@ from your typical <a href="http://guides.rubyonrails.org/migrations.html">migrat
 
 <h4 id="native-scripting">Native scripting</h4>
 
-<p>Changes are implemented as scripts native to your selected database engine. Writing a <a href="http://postgresql.org/">PostgreSQL</a> application? Write SQL scripts for <a href="http://www.postgresql.org/docs/current/static/app-psql.html"><code>psql</code></a>. Writing a <a href="http://mysql.com/">MySQL</a>-backed app? Write SQL scripts for <a href="http://dev.mysql.com/doc/refman/5.6/en/mysql.html"><code>mysql</code></a>.</p>
+<p>Changes are implemented as scripts native to your selected database engine. Writing a <a href="https://postgresql.org/">PostgreSQL</a> application? Write SQL scripts for <a href="https://www.postgresql.org/docs/current/static/app-psql.html"><code>psql</code></a>. Writing a <a href="https://mysql.com/">MySQL</a>-backed app? Write SQL scripts for <a href="https://dev.mysql.com/doc/refman/5.6/en/mysql.html"><code>mysql</code></a>.</p>
 
 <h4 id="dependency-resolution">Dependency resolution</h4>
 
@@ -53,7 +53,7 @@ from your typical <a href="http://guides.rubyonrails.org/migrations.html">migrat
 
 <h2 id="installation">Installation</h2>
 
-<p>There are a number of ways to install Sqitch. The PostgreSQL support requires <a href="http://www.postgresql.org/download/">PostgreSQL</a>; the Oracle support requires <a href="http://www.oracle.com/technetwork/database/features/instant-client/index-097480.html">Instant Client</a> (and the setting of the <code>$ORACLE_HOME</code> environment variable).</p>
+<p>There are a number of ways to install Sqitch. The PostgreSQL support requires <a href="https://www.postgresql.org/download/">PostgreSQL</a>; the Oracle support requires <a href="https://www.oracle.com/technetwork/database/features/instant-client/index-097480.html">Instant Client</a> (and the setting of the <code>$ORACLE_HOME</code> environment variable).</p>
 
 <h4 id="cpan"><a href="https://metacpan.org/dist/App-Sqitch">CPAN</a></h4>
 
@@ -72,16 +72,17 @@ from your typical <a href="http://guides.rubyonrails.org/migrations.html">migrat
   <li>PostgreSQL: <code>docker run --rm docteurklein/sqitch:pgsql</code></li>
 </ul>
 
-<h4 id="homebrew"><a href="http://brew.sh">Homebrew</a></h4>
+<h4 id="homebrew"><a href="https://brew.sh">Homebrew</a></h4>
 
 <ul>
-  <li>Tap: <code>brew tap theory/sqitch</code></li>
-  <li>PostgreSQL: <code>brew install sqitch_pg</code></li>
-  <li>SQLite: <code>brew install sqitch_sqlite</code></li>
-  <li>Oracle: <code>brew install sqitch_oracle</code></li>
-  <li>MySQL: <code>brew install sqitch_mysql</code></li>
-  <li>Firebird: <code>brew install sqitch_firebird</code></li>
-  <li>Vertica: <code>brew install sqitch_vertica</code></li>
+  <li>Tap: <code>brew tap sqitchers/sqitch</code></li>
+  <li>PostgreSQL: <code>brew install sqitch --with-postgres-support</code></li>
+  <li>SQLite: <code>brew install sqitch --with-sqlite-support</code></li>
+  <li>Oracle: <code>brew install sqitch --with-oracle-support</code></li>
+  <li>MySQL: <code>brew install sqitch --with-mysql-support</code></li>
+  <li>Firebird: <code>brew install sqitch --with-firebird-support</code></li>
+  <li>Vertica: <code>brew install sqitch --with-vertica-support</code></li>
+  <li>Snowflake: <code>brew install sqitch --with-snowflake-support</code></li>
 </ul>
 
 <h4 id="debian"><a href="https://www.debian.org/">Debian</a></h4>
@@ -105,16 +106,16 @@ from your typical <a href="http://guides.rubyonrails.org/migrations.html">migrat
   <li>Follow the steps for <a href="#cpan">CPAN</a> or <a href="#cpanminus">cpanminus</a></li>
 </ul>
 
-<h4 id="activestate"><a href="http://code.activestate.com/ppm/">ActiveState PPM</a></h4>
+<h4 id="activestate"><a href="https://code.activestate.com/ppm/">ActiveState PPM</a></h4>
 
 <ul>
-  <li>Install <a href="http://www.activestate.com/activeperl/downloads">ActivePerl</a></li>
+  <li>Install <a href="https://www.activestate.com/activeperl/downloads">ActivePerl</a></li>
   <li>Run <code>ppm install App-Sqitch</code></li>
   <li>For Oracle support, also run <code>ppm install DBD-Oracle</code></li>
   <li>For Firebird support, also run <code>ppm install DBD-Firebird</code></li>
 </ul>
 
-<h4 id="apt"><a href="http://en.wikipedia.org/wiki/Advanced_Packaging_Tool">Apt</a> + <a href="https://metacpan.org/pod/cpanm">cpanminus</a></h4>
+<h4 id="apt"><a href="https://en.wikipedia.org/wiki/Advanced_Packaging_Tool">Apt</a> + <a href="https://metacpan.org/pod/cpanm">cpanminus</a></h4>
 
 <ul>
   <li>Apt: <code>apt-get install build-essential cpanminus perl perl-doc</code></li>
@@ -127,11 +128,11 @@ from your typical <a href="http://guides.rubyonrails.org/migrations.html">migrat
   <li>Vertica: <code>apt-get install libdbd-odbc-perl</code></li>
 </ul>
 
-<h4 id="cpanminus"><a href="http://en.wikipedia.org/wiki/Yellowdog_Updater,_Modified">Yum</a> + <a href="https://metacpan.org/pod/cpanm">cpanminus</a></h4>
+<h4 id="cpanminus"><a href="https://en.wikipedia.org/wiki/Yellowdog_Updater,_Modified">Yum</a> + <a href="https://metacpan.org/pod/cpanm">cpanminus</a></h4>
 
 <ul>
   <li>Yum: <code>sudo yum install perl-devel perl-CPAN \<br />
-      && curl -L http://cpanmin.us | perl - --sudo App::cpanminus</code></li>
+      && curl -L https://cpanmin.us | perl - --sudo App::cpanminus</code></li>
   <li>Sqitch: <code>cpanm --quiet --notest App::Sqitch</code></li>
   <li>PostgreSQL: <code>yum install postgresql perl-DBD-Pg</code></li>
   <li>SQLite: <code>yum install sqlite perl-DBD-SQLite</code></li>
@@ -174,7 +175,7 @@ from your typical <a href="http://guides.rubyonrails.org/migrations.html">migrat
 
 <h3 id="agile">Agile Database Development</h3>
 
-<p>Three hour technical tutorial <a href="http://www.pgcon.org/2013/schedule/events/615.en.html">originally presented at PGCon 2013</a> and updated in January 2014, covering source code control with <a href="http://git-scm.org/">Git</a>, database change control with Sqitch, and test-driven database development with <a href="http://pgtap.org/">pgTAP</a>.</p>
+<p>Three hour technical tutorial <a href="https://www.pgcon.org/2013/schedule/events/615.en.html">originally presented at PGCon 2013</a> and updated in January 2014, covering source code control with <a href="https://git-scm.org/">Git</a>, database change control with Sqitch, and test-driven database development with <a href="https://pgtap.org/">pgTAP</a>.</p>
 
 <ul>
   <li><a href="https://speakerdeck.com/theory/agile-database-development-2ed">Speaker Deck</a></li>
@@ -187,18 +188,18 @@ from your typical <a href="http://guides.rubyonrails.org/migrations.html">migrat
 
 
         <aside id="sidebar">
-          <a href="https://github.com/theory/sqitch/zipball/master" class="button">
+          <a href="https://github.com/sqitchers/sqitch/zipball/master" class="button">
             <small>Download</small>
             .zip file
           </a>
-          <a href="https://github.com/theory/sqitch/tarball/master" class="button">
+          <a href="https://github.com/sqitchers/sqitch/tarball/master" class="button">
             <small>Download</small>
             .tar.gz file
           </a>
 
-          <p class="repo-owner"><a href="https://github.com/theory/sqitch"></a> is maintained by <a href="https://github.com/theory">theory</a>.</p>
+          <p class="repo-owner"><a href="https://github.com/sqitchers/sqitch"></a> is maintained by <a href="https://github.com/sqitchers">The Sqitch Hackers</a>.</p>
 
-          <p>This page was generated by <a href="http://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
         </aside>
       </div>
     </div>
