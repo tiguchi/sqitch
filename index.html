@@ -53,9 +53,32 @@ from your typical <a href="https://guides.rubyonrails.org/migrations.html">migra
 
 <h2 id="installation">Installation</h2>
 
-<p>There are a number of ways to install Sqitch. The PostgreSQL support requires <a href="https://www.postgresql.org/download/">PostgreSQL</a>; the Oracle support requires <a href="https://www.oracle.com/technetwork/database/features/instant-client/index-097480.html">Instant Client</a> (and the setting of the <code>$ORACLE_HOME</code> environment variable).</p>
+<p>There are a number of ways to install Sqitch. Each database engine also requires external dependencies:<p>
+
+  <ul>
+    <li>PostgreSQL requires <a href="https://www.postgresql.org/download/">PostgreSQL</a></li>
+    <li>SQLite requires <a href="https://sqlite.org/">SQLite</a></li>
+    <li>MySQL requires <a href="https://dev.mysql.com">MySQL</a></li>
+    <li>Firebird requires <a href="https://www.firebirdsql.org">Firebird</a></li>
+    <li>Oracle requires <a href="https://www.oracle.com/technetwork/database/features/instant-client/index-097480.html">Instant Client</a> (and the setting of the <code>$ORACLE_HOME</code> environment variable)</li>
+    <li>Vertica requires vsql and the Vertica ODBC driver from <a href="https://www.vertica.com/download/vertica/client-drivers/">Vertica</a></li>
+    <li>Exasol requires EXAplus and the Exasol ODBC driver from <a href="https://www.exasol.com/portal/">Exasol</a></li>
+    <li>Snowflake requires SnowSQL and the Snowflake ODBC driver from <a href="https://docs.snowflake.net/manuals/user-guide-connecting.html">Snowflake</a></li>
+  </ul>
+
+<h4 id="docker"><a href="https://hub.docker.com/r/sqitch/sqitch/">Docker</a></h4>
+
+<p>The Sqitch Docker image and shell script is by far the quickest and easiest way to get started with Sqitch. It supports PostgreSQL, SQLite, MySQL, and Firebird. Simply pull the image, download the shell script, make it executable, and go:</p>
+
+<pre>
+docker pull sqitch/sqitch
+curl -L https://git.io/fAX6Z -o sqitch && chmod +x sqitch
+./sqitch help
+</pre>
 
 <h4 id="cpan"><a href="https://metacpan.org/dist/App-Sqitch">CPAN</a></h4>
+
+<p>The canonical source for Sqitch releases is CPAN. Use the <code>cpan</code> client to download and build Sqitch and its dependencies from Source; database engine dependencies must be installed first:</p>
 
 <ul>
   <li>PostgreSQL: <code>cpan App::Sqitch DBD::Pg</code></li>
@@ -63,22 +86,19 @@ from your typical <a href="https://guides.rubyonrails.org/migrations.html">migra
   <li>Oracle: <code>cpan App::Sqitch DBD::Oracle</code></li>
   <li>MySQL: <code>cpan App::Sqitch DBD::mysql</code></li>
   <li>Firebird: <code>cpan App::Sqitch DBD::Firebird</code></li>
-  <li>Vertica: <code>cpan App::Sqitch DBD::ODBC</code></li>
-</ul>
-
-<h4 id="docker"><a href="https://registry.hub.docker.com/u/docteurklein/sqitch/">Docker</a></h4>
-
-<ul>
-  <li>PostgreSQL: <code>docker run --rm docteurklein/sqitch:pgsql</code></li>
+  <li>Vertica, Exasol, Snowflake: <code>cpan App::Sqitch DBD::ODBC</code></li>
 </ul>
 
 <h4 id="homebrew"><a href="https://brew.sh">Homebrew</a></h4>
 
+<p>The <a href="https://github.com/sqitchers/homebrew-sqitch/">Sqitch Homebrew Tap</a> quickly builds Sqitch on you Mac. Some engines require the installation of dependencies in advance; consult <a href="https://github.com/sqitchers/homebrew-sqitch/#readme">the docs</a> for build details.</p>
+
+<p>First, configure the tap: <code>brew tap sqitchers/sqitch</code>. Then install the variants you need:</p>
+
 <ul>
-  <li>Tap: <code>brew tap sqitchers/sqitch</code></li>
   <li>PostgreSQL: <code>brew install sqitch --with-postgres-support</code></li>
   <li>SQLite: <code>brew install sqitch --with-sqlite-support</code></li>
-  <li>Oracle: <code>brew install sqitch --with-oracle-support</code></li>
+  <li>Oracle: <code>HOMEBREW_ORACLE_HOME=$ORACLE_HOME brew install sqitch --with-oracle-support</code></li>
   <li>MySQL: <code>brew install sqitch --with-mysql-support</code></li>
   <li>Firebird: <code>brew install sqitch --with-firebird-support</code></li>
   <li>Vertica: <code>brew install sqitch --with-vertica-support</code></li>
@@ -86,6 +106,8 @@ from your typical <a href="https://guides.rubyonrails.org/migrations.html">migra
 </ul>
 
 <h4 id="debian"><a href="https://www.debian.org/">Debian</a></h4>
+
+<p>The <a href="https://packages.debian.org/stretch/sqitch">Debian Sqitch Apt</a> package tends to lag behind several versions, but provides easy access to Debian and Ubuntu users:</p>
 
 <ul>
   <li>Apt: <code>apt-get install sqitch</code></li>
@@ -96,26 +118,12 @@ from your typical <a href="https://guides.rubyonrails.org/migrations.html">migra
   <li>Firebird 3.0 (Debian 9 and later): <code>apt-get install libdbd-firebird-perl firebird3.0-utils</code></li>
   <li>Firebird Classic (Debian 8 and earlier): <code>apt-get install libdbd-firebird-perl firebird2.5-classic</code></li>
   <li>Firebird Super (Debian 8 and earlier): <code>apt-get install libdbd-firebird-perl firebird2.5-super</code></li>
-  <li>Vertica: <code>apt-get install libdbd-odbc-perl</code></li>
-</ul>
-
-<h4 id="strawberry">Windows</h4>
-
-<ul>
-  <li>Install <a href="http://strawberryperl.com/">Strawberry Perl</a></li>
-  <li>Follow the steps for <a href="#cpan">CPAN</a> or <a href="#cpanminus">cpanminus</a></li>
-</ul>
-
-<h4 id="activestate"><a href="https://code.activestate.com/ppm/">ActiveState PPM</a></h4>
-
-<ul>
-  <li>Install <a href="https://www.activestate.com/activeperl/downloads">ActivePerl</a></li>
-  <li>Run <code>ppm install App-Sqitch</code></li>
-  <li>For Oracle support, also run <code>ppm install DBD-Oracle</code></li>
-  <li>For Firebird support, also run <code>ppm install DBD-Firebird</code></li>
+  <li>Vertica, Exasol, Snowflake: <code>apt-get install libdbd-odbc-perl</code></li>
 </ul>
 
 <h4 id="apt"><a href="https://en.wikipedia.org/wiki/Advanced_Packaging_Tool">Apt</a> + <a href="https://metacpan.org/pod/cpanm">cpanminus</a></h4>
+
+<p>An alternative that gets you the latest version of Sqitch is to just <code>apt-get</code> the external dependencies, and then build Sqitch itself via cpanminus:</p>
 
 <ul>
   <li>Apt: <code>apt-get install build-essential cpanminus perl perl-doc</code></li>
@@ -125,10 +133,12 @@ from your typical <a href="https://guides.rubyonrails.org/migrations.html">migra
   <li>Oracle: <code>apt-get install libdbd-oracle-perl</code></li>
   <li>MySQL: <code>apt-get install mysql libdbd-mysql-perl</code></li>
   <li>Firebird: <code>apt-get install firebird libdbd-firebird-perl</code></li>
-  <li>Vertica: <code>apt-get install libdbd-odbc-perl</code></li>
+  <li>Vertica, Exasol, Snowflake: <code>apt-get install libdbd-odbc-perl</code></li>
 </ul>
 
 <h4 id="cpanminus"><a href="https://en.wikipedia.org/wiki/Yellowdog_Updater,_Modified">Yum</a> + <a href="https://metacpan.org/pod/cpanm">cpanminus</a></h4>
+
+<p>The same basic pattern on Red Hat-derived systems calls for eternal dependencies to be <code>yum</code>-installed, and for Sqitch itself to be built and installed by cpanminus:</p>
 
 <ul>
   <li>Yum: <code>sudo yum install perl-devel perl-CPAN \<br />
@@ -139,7 +149,27 @@ from your typical <a href="https://guides.rubyonrails.org/migrations.html">migra
   <li>Oracle: <code>yum install perl-DBD-Oracle</code></li>
   <li>MySQL: <code>yum install mysql perl-DBD-mysql</code></li>
   <li>Firebird: <code>yum install firebird-classic perl-DBD-Firebird perl-Time-HiRes</code></li>
-  <li>Vertica: <code>yum install perl-DBD-ODBC</code></li>
+  <li>Vertica, Exasol, Snowflake: <code>yum install perl-DBD-ODBC</code></li>
+</ul>
+
+<h4 id="strawberry">Windows</h4>
+
+<p>The most reliable way to run Sqitch on Windows, aside from the Docker image, is to:</p>
+
+<ul>
+  <li>Install <a href="http://strawberryperl.com/">Strawberry Perl</a></li>
+  <li>Follow the steps for <a href="#cpan">CPAN</a> or <a href="#cpanminus">cpanminus</a></li>
+</ul>
+
+<h4 id="activestate"><a href="https://code.activestate.com/ppm/">ActiveState PPM</a></h4>
+
+<p>An alternative is to use the ActiveState PPM, though builds tend to lag behind a few versions:</p>
+
+<ul>
+  <li>Install <a href="https://www.activestate.com/activeperl/downloads">ActivePerl</a></li>
+  <li>Run <code>ppm install App-Sqitch</code></li>
+  <li>For Oracle support, also run <code>ppm install DBD-Oracle</code></li>
+  <li>For Firebird support, also run <code>ppm install DBD-Firebird</code></li>
 </ul>
 
 <h2 id="getting-started">Getting Started</h2>
@@ -155,6 +185,8 @@ from your typical <a href="https://guides.rubyonrails.org/migrations.html">migra
   <li><a href="https://metacpan.org/module/sqitchtutorial-mysql">MySQL tutorial</a></li>
   <li><a href="https://metacpan.org/module/sqitchtutorial-firebird">Firebird tutorial</a></li>
   <li><a href="https://metacpan.org/module/sqitchtutorial-vertica">Vertica tutorial</a></li>
+  <li><a href="https://metacpan.org/module/sqitchtutorial-exasol">Exasol tutorial</a></li>
+  <li><a href="https://metacpan.org/module/sqitchtutorial-snowflake">Snowflake tutorial</a></li>
 </ul>
 
 <h4 id="maillist"><a href="https://groups.google.com/forum/#!forum/sqitch-users">Mail List</a></h4>
