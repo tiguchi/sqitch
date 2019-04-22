@@ -27,6 +27,11 @@ Revision history for Perl extension App::Sqitch
        `sqitch-authentication`, as well as `$SNOWSQL_PRIVATE_KEY_PASSPHRASE`
        in `sqitch-environment`. Thanks to Casey Largent for figuring it out
        (#441).
+     - Added the `ask_yes_no()` method as a reaplcement for `ask_y_n()`, which
+       is now deprecated. The new method expects localized responses from the
+       user when translations are provided. Defaults to the English "yes" and
+       "no" when no translation is available. Suggested by German translator
+       Thomas Iguchi (#449).
 
 0.9999 2019-02-01T15:29:40Z
      [Bug Fixes]
